@@ -27,7 +27,7 @@ router.route('/:symbol')
         try {
             // confirm symbol is in UPPER CASE
             if (req.params.symbol !== req.params.symbol.toUpperCase()) {
-                return res.redirect(`${req.params.symbol.toUpperCase()}`);
+                return res.status(308).redirect(`${req.params.symbol.toUpperCase()}`);
             }
 
             const sql = db.prepare(`SELECT * FROM stockPrices WHERE symbol = ?`);
