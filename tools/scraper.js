@@ -32,7 +32,7 @@ async function scraper() {
 
     console.log("Stock prices updated successfully.");
   } catch (error) {
-    console.error("Error loading stock prices:", error);
+    console.error("Error updating stock prices! Previously loaded data will be served.");
   }
 }
 
