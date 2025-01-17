@@ -17,7 +17,7 @@ const scrap = (req, res, next) => {
 };
 
 router.route('/').get((req, res) => {
-    res.status(200).send('Prices!');
+    res.status(308).redirect('/docs');
 })
 
 // Define the route
