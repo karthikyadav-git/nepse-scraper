@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Database = require('better-sqlite3');
 const scraper = require('../tools/scraper');
+const DatabaseManager = require('../tools/databaseManager');
 
-const db = new Database('./databases/stocks.db');
+const dbMan = new DatabaseManager('stocks.db');
 
 // Middleware to run the scraper
 const scrap = (req, res, next) => {
@@ -30,8 +30,7 @@ router.route('/:symbol')
                 return res.status(308).redirect(`${req.params.symbol.toUpperCase()}`);
             }
 
-            const sql = db.prepare(`SELECT * FROM stockPrices WHERE symbol = ?`);
-            const data = sql.get(req.params.symbol);
+            const data = dbMan.retrieveDataBySymbol(req.params.symbol);
 
             if (!data) {
                 return res.status(404).json({ error: "No data found for the given symbol." });

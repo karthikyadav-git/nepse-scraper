@@ -27,6 +27,13 @@ class DatabaseManager {
         const insert = this.database.prepare(sql);
         insert.run(dataArray);
     }
+
+    retrieveDataBySymbol(symbol) {
+        const sqlFile = path.join(this.sqlDirectory, 'queryBySymbol.sql');
+        const sql = fs.readFileSync(sqlFile, 'utf8');
+        const queryPrepared = this.database.prepare(sql);
+        return queryPrepared.get(symbol);
+    }
 }
 
 module.exports = DatabaseManager;
