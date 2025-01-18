@@ -34,6 +34,13 @@ class DatabaseManager {
         const queryPrepared = this.database.prepare(sql);
         return queryPrepared.get(symbol);
     }
+
+    listOfTop(columnName, numberOfItems) {
+        const sqlFile = path.join(this.sqlDirectory, 'listTop.sql');
+        const sql = fs.readFileSync(sqlFile, 'utf8');
+        const queryPrepared = this.database.prepare(sql);
+        return queryPrepared.all(columnName, numberOfItems);
+    }
 }
 
 module.exports = DatabaseManager;

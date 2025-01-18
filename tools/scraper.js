@@ -23,8 +23,8 @@ async function scraper() {
     const stocksDataArray = rawStocksData.split(' ').filter(line => line !== '').join('').split('\n').filter(line => line !== '');
     const dataArrayByStock = arrayByStock(stocksDataArray, stocksDataArray.length);
 
-    dbMan.createStocksTable();
     dbMan.deleteStocksTable();
+    dbMan.createStocksTable();
 
     for(let i = 0; i < dataArrayByStock.length; i++) {
       dbMan.insertStockData(dataArrayByStock[i]);
