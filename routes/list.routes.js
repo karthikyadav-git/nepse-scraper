@@ -20,9 +20,15 @@ router.route('/')
     .get((req, res) => {
         try {
             const data = dbMan.listOfTop(req.query.col, req.query.num || 10);
-            return res.status(200).json({data});
-        } catch {
-            console.log("error");
+
+            if (!data) {
+                throw new Error("No stock data found.");
+            }
+
+            return res.status(200).json({success: true, data});
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Failed to fetch stock data." });
         }
     });
 

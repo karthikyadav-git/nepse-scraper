@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] -
+### Added
+- Added extended `documentation`.
+- `docs` route added.
+- `DatabaseManager` tool added to make data handling easy.
+
+### Changed
+- Symbol based route changed from `/nepse/:symbol` to `/symbol/:symbol`.
+- Clear `routes` are separated.
+- `SQL` commands are separated into files.
+
+### Fixed
+- `Symbols` are case insensative now.
+
 ## [1.0.0] - 2024-12-06
 ### Added
 - Initial release of the full-stack Node.js application.
