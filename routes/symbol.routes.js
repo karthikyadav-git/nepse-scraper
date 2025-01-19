@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const Database = require('better-sqlite3');
-const scrapper = require('../components/scrapper');
-const PORT = 3000;
+const scraper = require('../tools/scraper');
+const DatabaseManager = require('../tools/databaseManager');
 
-const db = new Database('./databases/stocks.db');
+const dbMan = new DatabaseManager('stocks.db');
 
 // Middleware to run the scraper
-const middle = (req, res, next) => {
+const scrap = (req, res, next) => {
     try {
-        scrapper(); // Assuming scrapper() is asynchronous
+        scraper(); // Assuming scraper() is asynchronous
         next();
     } catch (error) {
         console.error("Error running the scraper:", error);
@@ -18,18 +17,22 @@ const middle = (req, res, next) => {
 };
 
 router.route('/').get((req, res) => {
-    res.status(200).send('Prices!');
+    res.status(308).redirect('/docs');
 })
 
 // Define the route
 router.route('/:symbol')
-    .all(express.json(), middle)
+    .all(express.json(), scrap)
     .get((req, res) => {
         try {
-            const sql = db.prepare(`SELECT * FROM stockPrices WHERE symbol = ?`);
-            const data = sql.get(req.params.symbol);
+            // confirm symbol is in UPPER CASE
+            if (req.params.symbol !== req.params.symbol.toUpperCase()) {
+                return res.status(308).redirect(`${req.params.symbol.toUpperCase()}`);
+            }
 
-            if (data.length === 0) {
+            const data = dbMan.retrieveDataBySymbol(req.params.symbol);
+
+            if (!data) {
                 return res.status(404).json({ error: "No data found for the given symbol." });
             }
 

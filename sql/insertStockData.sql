@@ -1,0 +1,1 @@
+INSERT INTO stockPrices(id, symbol, LTP, point_change, percent_change, open, high, low, volume, prev_close) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
