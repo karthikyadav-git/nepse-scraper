@@ -11,7 +11,7 @@ An express app that scraps the NEPSE stock data and returns stock info in json f
 > 📌 The stocks database is updated on every request from the client to give the client the latest data.
 
 ## How to use?
-Send a GET request with the symbol of the stock to https://api.karthikyadav.com/symbol/{symbol}
+Send a GET request with the symbol of the stock to https://nepse-empb.onrender.com/symbol/{symbol}
 Example:
 ```js
 'https://nepse-empb.onrender.com/symbol/ADBL'
